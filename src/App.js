@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import Header from './component/header';
-import './app.scss'
-
+import React, { Component } from "react";
+import Header from "./component/header";
+import Headline from "./component/headline";
+import "./app.scss";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
+        <Header />
+        <section className="main">
+          <Headline header="Posts" desc="Click btn to render post" />
+        </section>
       </div>
     );
   }
