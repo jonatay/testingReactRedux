@@ -17,13 +17,16 @@ describe('ListItemComponent', function() {
     });
   });
   describe('Component Renders', function() {
-    const props = {
-      title: 'test Title',
-      desc: 'Some text'
-    };
     let wrapper;
     beforeEach(() => {
-      wrapper = shallow(<ListItem {...props} />);
+      wrapper = shallow(
+        <ListItem
+          {...{
+            title: 'test Title',
+            desc: 'Some text'
+          }}
+        />
+      );
     });
     it('should Render without error', function() {
       expect(findByTestAtrr(wrapper, 'listItemComponent').length).toBe(1);
@@ -33,6 +36,15 @@ describe('ListItemComponent', function() {
     });
     it('should Render a desc', function() {
       expect(findByTestAtrr(wrapper, 'componentDesc').length).toBe(1);
+    });
+  });
+  describe('Should NOT Render', function() {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallow(<ListItem {...{ desc: 'Some text' }} />);
+    });
+    it('should NOT Render without title', function() {
+      expect(findByTestAtrr(wrapper, 'listItemComponent').length).toBe(0);
     });
   });
 });
