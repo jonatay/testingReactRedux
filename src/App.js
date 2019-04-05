@@ -51,7 +51,7 @@ class App extends Component {
               ))}
             </div>
           ) : (
-            'No Items'
+            <div>No Posts Loaded</div>
           )}
         </section>
       </div>
