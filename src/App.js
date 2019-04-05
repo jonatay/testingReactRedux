@@ -1,20 +1,39 @@
-import React, { Component } from "react";
-import Header from "./component/header";
-import Headline from "./component/headline";
-import "./app.scss";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Header from './component/header';
+import Headline from './component/headline';
+import SharedButton from './component/button';
+import ListItem from './component/listItem';
+import { fetchPosts } from './actions';
+
+import './app.scss';
 
 const tempArr = [
   {
-    fName: "Joe",
-    sName: "Bloggs",
-    email: "joe@bloggs.com",
+    fName: 'Joe',
+    sName: 'Bloggs',
+    email: 'joe@bloggs.com',
     age: 24,
     onlineStatus: true
   }
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.fetch = this.fetch.bind(this);
+  }
+  fetch() {
+    this.props.fetchPosts();
+  }
+
   render() {
+    const { posts } = this.props;
+    const configButton = {
+      buttonText: 'Get Posts',
+      emitEvent: this.fetch
+    };
     return (
       <div className="App">
         <Header />
@@ -24,10 +43,23 @@ class App extends Component {
             desc="Click btn to render post"
             tempArr={tempArr}
           />
+          <SharedButton {...configButton} />
+          {posts.length > 0 ? (
+            <div>
+              {posts.map(({ title, body: desc }, index) => (
+                <ListItem {...{ key: index, title, desc }} />
+              ))}
+            </div>
+          ) : (
+            'No Items'
+          )}
         </section>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  state => ({ posts: state.posts }),
+  { fetchPosts }
+)(App);

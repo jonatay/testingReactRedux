@@ -6,8 +6,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 class SharedButton extends Component {
   submitEvent() {
-    if (this.emitEvent) {
-      this.emitEvent();
+    if (this.props.emitEvent) {
+      this.props.emitEvent();
     }
   }
   render() {
